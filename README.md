@@ -40,11 +40,19 @@ A robust web scraper for Trendlyne.com, designed to extract sector and company-s
 
 ## Usage
 
-To run the scraper and generate the `telecom_companies.csv` file in the `data/` directory:
+To run the scraper and extract company data for a specific sector, provide the Trendlyne sector URL as a command-line argument:
 
 ```bash
-python main.py
+python main.py <sector_url>
 ```
+
+**Example:**
+
+```bash
+python main.py https://trendlyne.com/equity/sector/10/telecom-services/
+```
+
+This will generate a CSV file (e.g., `telecom-services_companies.csv`) in the `data/` directory containing the scraped company information.
 
 ## Important Notes
 
