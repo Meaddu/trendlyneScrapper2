@@ -52,7 +52,20 @@ def get_companies_in_sector(sector_url, verify_ssl=True):
                         if 'tooltip_stock_name' in item and 'cell_url' in item:
                             company_name = item['tooltip_stock_name']
                             company_url = item['cell_url']
-                            companies.append({'name': company_name, 'url': company_url})
+                            
+                            # Extract components for reports URL
+                            from urllib.parse import urlparse
+                            parsed_company_url = urlparse(company_url)
+                            path_segments = [segment for segment in parsed_company_url.path.split('/') if segment]
+                            
+                            reports_url = None
+                            if len(path_segments) >= 4 and path_segments[0] == 'equity':
+                                company_id = path_segments[1]
+                                company_symbol = path_segments[2]
+                                company_slug = path_segments[3]
+                                reports_url = f"https://trendlyne.com/research-reports/stock/{company_id}/{company_symbol}/{company_slug}/"
+                            
+                            companies.append({'name': company_name, 'url': company_url, 'reports_url': reports_url})
             except json.JSONDecodeError as e:
                 return f"Error decoding JSON from data-treemapdict: {e}"
         else:

@@ -51,7 +51,7 @@ def main():
                 print(f"- {company['name']} ({company['url']})")
 
             with open(output_csv_path, 'w', newline='', encoding='utf-8') as csvfile:
-                fieldnames = ['name', 'url']
+                fieldnames = ['name', 'url', 'reports_url']
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 writer.writeheader()
                 writer.writerows(companies)
